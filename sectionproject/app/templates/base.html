@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}{% endblock %}</title>
+   {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}"/>
+</head>
+<body>
+<center>
+	<h1>My Site</h1>
+
+	<nav>
+		<a href="/">Home</a>
+		{% if current_user %}
+			<a href="{% url 'logout' %}">Logout</a>
+		{% else %}
+			<a href="{% url 'login' %}">Login</a>
+			<a href="{% url 'signup' %}">Sign Up</a>
+		{% endif %}
+	</nav>
+	<hr>
+
+	{% if current_user %}
+		<h2>Welcome <span class="welcome-user">{{ current_user }}</span>!</h2>
+	{% else %}
+		<h2 class="login-prompt">Login to access this website!</h2>
+	{% endif %}
+
+	{% block body %}{% endblock %}
+</center>
+</body>
+</html>

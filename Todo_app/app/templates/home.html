@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+<body>
+
+    <h1>Todo Application</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Enter the Title:</label>
+        <input type="text" name="title" value="{{dataget.title}}">
+
+        <label>Enter the Description:</label>
+        <input type="text" name="description" value="{{dataget.description}}">
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for i in data %}
+        <tr>
+            <td>{{i.title}}</td>
+            <td>{{i.description}}</td>
+            <td class="action-buttons">
+                <a href="{% url 'update' i.id %}">
+                    <button class="update-button">Update</button>
+                </a>
+                <a href="{% url 'delete' i.id %}">
+                    <button class="delete-button">Delete</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
